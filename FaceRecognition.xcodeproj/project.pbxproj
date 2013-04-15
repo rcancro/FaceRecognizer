@@ -1,0 +1,577 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C0B18CA1656724C00A95B1E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0B18C91656724C00A95B1E /* AVFoundation.framework */; };
+		4C0B18D116568A3800A95B1E /* FaceDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B18D016568A3800A95B1E /* FaceDetector.mm */; };
+		4C0B18D416568BAA00A95B1E /* OpenCVData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B18D316568BAA00A95B1E /* OpenCVData.mm */; };
+		4C0B18D61656944400A95B1E /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C0B18D51656944400A95B1E /* haarcascade_frontalface_alt2.xml */; };
+		4C9DEA55165668B4003DBFB5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA51165668B4003DBFB5 /* CoreImage.framework */; };
+		4C9DEA56165668B4003DBFB5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA52165668B4003DBFB5 /* CoreMedia.framework */; };
+		4C9DEA57165668B4003DBFB5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA53165668B4003DBFB5 /* CoreVideo.framework */; };
+		4C9DEA58165668B4003DBFB5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA54165668B4003DBFB5 /* QuartzCore.framework */; };
+		4C9DEA5A165668BB003DBFB5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA59165668BB003DBFB5 /* AssetsLibrary.framework */; };
+		4C9DEA5C165668C0003DBFB5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA5B165668C0003DBFB5 /* Accelerate.framework */; };
+		4C9DEA5E165668CD003DBFB5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA5D165668CD003DBFB5 /* libsqlite3.dylib */; };
+		4C9DEA60165668E2003DBFB5 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9DEA5F165668E2003DBFB5 /* opencv2.framework */; };
+		4CBE4D791655CAC8004B63D9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CBE4D781655CAC8004B63D9 /* UIKit.framework */; };
+		4CBE4D7B1655CAC8004B63D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CBE4D7A1655CAC8004B63D9 /* Foundation.framework */; };
+		4CBE4D7D1655CAC8004B63D9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CBE4D7C1655CAC8004B63D9 /* CoreGraphics.framework */; };
+		4CBE4D831655CAC8004B63D9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4CBE4D811655CAC8004B63D9 /* InfoPlist.strings */; };
+		4CBE4D851655CAC8004B63D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE4D841655CAC8004B63D9 /* main.m */; };
+		4CBE4D891655CAC8004B63D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE4D881655CAC8004B63D9 /* AppDelegate.m */; };
+		4CBE4D8B1655CAC8004B63D9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CBE4D8A1655CAC8004B63D9 /* Default.png */; };
+		4CBE4D8D1655CAC8004B63D9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CBE4D8C1655CAC8004B63D9 /* Default@2x.png */; };
+		4CBE4D8F1655CAC8004B63D9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CBE4D8E1655CAC8004B63D9 /* Default-568h@2x.png */; };
+		4CBE4D921655CAC8004B63D9 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CBE4D901655CAC8004B63D9 /* MainStoryboard.storyboard */; };
+		9C2FF5E917160E2200CA910D /* UIAlertView+MKBlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2FF5E817160E2200CA910D /* UIAlertView+MKBlockAdditions.m */; };
+		9C2FF5EC1716242200CA910D /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C2FF5EB1716242200CA910D /* Person.m */; };
+		9C64E442171C5D0F0022CEE2 /* RecognizedFacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C64E441171C5D0F0022CEE2 /* RecognizedFacesViewController.m */; };
+		9C64E6ED171CA33A0022CEE2 /* brian1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D2171CA33A0022CEE2 /* brian1.JPG */; };
+		9C64E6EE171CA33A0022CEE2 /* brian2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D3171CA33A0022CEE2 /* brian2.JPG */; };
+		9C64E6EF171CA33A0022CEE2 /* brian3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D4171CA33A0022CEE2 /* brian3.JPG */; };
+		9C64E6F0171CA33A0022CEE2 /* brian4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D5171CA33A0022CEE2 /* brian4.JPG */; };
+		9C64E6F1171CA33A0022CEE2 /* brian5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D6171CA33A0022CEE2 /* brian5.JPG */; };
+		9C64E6F2171CA33A0022CEE2 /* brian6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D7171CA33A0022CEE2 /* brian6.JPG */; };
+		9C64E6F3171CA33A0022CEE2 /* brian7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D8171CA33A0022CEE2 /* brian7.JPG */; };
+		9C64E6F4171CA33A0022CEE2 /* brian8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6D9171CA33A0022CEE2 /* brian8.JPG */; };
+		9C64E6F5171CA33A0022CEE2 /* john1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DA171CA33A0022CEE2 /* john1.JPG */; };
+		9C64E6F6171CA33A0022CEE2 /* john2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DB171CA33A0022CEE2 /* john2.JPG */; };
+		9C64E6F7171CA33A0022CEE2 /* john3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DC171CA33A0022CEE2 /* john3.JPG */; };
+		9C64E6F8171CA33A0022CEE2 /* john4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DD171CA33A0022CEE2 /* john4.JPG */; };
+		9C64E6F9171CA33A0022CEE2 /* john5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DE171CA33A0022CEE2 /* john5.JPG */; };
+		9C64E6FA171CA33A0022CEE2 /* john6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6DF171CA33A0022CEE2 /* john6.JPG */; };
+		9C64E6FB171CA33A0022CEE2 /* john7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E0171CA33A0022CEE2 /* john7.JPG */; };
+		9C64E6FC171CA33A0022CEE2 /* john8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E1171CA33A0022CEE2 /* john8.JPG */; };
+		9C64E6FD171CA33A0022CEE2 /* john9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E2171CA33A0022CEE2 /* john9.JPG */; };
+		9C64E6FE171CA33A0022CEE2 /* john10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E3171CA33A0022CEE2 /* john10.JPG */; };
+		9C64E6FF171CA33A0022CEE2 /* paul1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E4171CA33A0022CEE2 /* paul1.JPG */; };
+		9C64E700171CA33A0022CEE2 /* paul2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E5171CA33A0022CEE2 /* paul2.JPG */; };
+		9C64E701171CA33A0022CEE2 /* paul3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E6171CA33A0022CEE2 /* paul3.JPG */; };
+		9C64E702171CA33A0022CEE2 /* paul4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E7171CA33A0022CEE2 /* paul4.JPG */; };
+		9C64E703171CA33A0022CEE2 /* paul5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E8171CA33A0022CEE2 /* paul5.JPG */; };
+		9C64E704171CA33A0022CEE2 /* paul6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6E9171CA33A0022CEE2 /* paul6.JPG */; };
+		9C64E705171CA33A0022CEE2 /* paul7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6EA171CA33A0022CEE2 /* paul7.JPG */; };
+		9C64E706171CA33A0022CEE2 /* paul9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6EB171CA33A0022CEE2 /* paul9.JPG */; };
+		9C64E707171CA33A0022CEE2 /* paul10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 9C64E6EC171CA33A0022CEE2 /* paul10.JPG */; };
+		9CB156C517148D7F00A0045D /* KnownFacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156C417148D7F00A0045D /* KnownFacesViewController.m */; };
+		9CB156C817148D8D00A0045D /* UnknownFacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156C717148D8D00A0045D /* UnknownFacesViewController.m */; };
+		9CB156CB1714945C00A0045D /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156CA1714945B00A0045D /* PhotoManager.m */; };
+		9CB156CE171498A300A0045D /* FaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156CD171498A200A0045D /* FaceCell.m */; };
+		9CB156E71714B37F00A0045D /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156E61714B37F00A0045D /* NSManagedObjectContext+Fetch.m */; };
+		9CB156E91714B4A500A0045D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB156E81714B4A400A0045D /* CoreData.framework */; };
+		9CB156F81714B60900A0045D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9CB156F61714B60800A0045D /* Model.xcdatamodeld */; };
+		9CB157071714D19300A0045D /* DetectedFace+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB157061714D19300A0045D /* DetectedFace+Additions.m */; };
+		9CB1570A1714D1E700A0045D /* DetectedFace.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB157091714D1E700A0045D /* DetectedFace.m */; };
+		9CB157131715BDA600A0045D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB157121715BDA500A0045D /* Photo.m */; };
+		9CD5297D171715DF00AF3D97 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5297C171715DF00AF3D97 /* PersonViewController.m */; };
+		9CD529801717220500AF3D97 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CD5297F1717220500AF3D97 /* PhotoViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4C0B18C91656724C00A95B1E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4C0B18CF16568A3800A95B1E /* FaceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceDetector.h; sourceTree = "<group>"; };
+		4C0B18D016568A3800A95B1E /* FaceDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FaceDetector.mm; sourceTree = "<group>"; };
+		4C0B18D216568BAA00A95B1E /* OpenCVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVData.h; sourceTree = "<group>"; };
+		4C0B18D316568BAA00A95B1E /* OpenCVData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVData.mm; sourceTree = "<group>"; };
+		4C0B18D51656944400A95B1E /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
+		4C9DEA51165668B4003DBFB5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		4C9DEA52165668B4003DBFB5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		4C9DEA53165668B4003DBFB5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		4C9DEA54165668B4003DBFB5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4C9DEA59165668BB003DBFB5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		4C9DEA5B165668C0003DBFB5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		4C9DEA5D165668CD003DBFB5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4C9DEA5F165668E2003DBFB5 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		4CBE4D741655CAC8004B63D9 /* FaceRecognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceRecognition.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CBE4D781655CAC8004B63D9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4CBE4D7A1655CAC8004B63D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4CBE4D7C1655CAC8004B63D9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4CBE4D801655CAC8004B63D9 /* FaceRecognition-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FaceRecognition-Info.plist"; sourceTree = "<group>"; };
+		4CBE4D821655CAC8004B63D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4CBE4D841655CAC8004B63D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4CBE4D861655CAC8004B63D9 /* FaceRecognition-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FaceRecognition-Prefix.pch"; sourceTree = "<group>"; };
+		4CBE4D871655CAC8004B63D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4CBE4D881655CAC8004B63D9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4CBE4D8A1655CAC8004B63D9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4CBE4D8C1655CAC8004B63D9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4CBE4D8E1655CAC8004B63D9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4CBE4D911655CAC8004B63D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		9C2FF5E717160E2200CA910D /* UIAlertView+MKBlockAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+MKBlockAdditions.h"; path = "FaceRecognition/UIAlertView+MKBlockAdditions.h"; sourceTree = "<group>"; };
+		9C2FF5E817160E2200CA910D /* UIAlertView+MKBlockAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+MKBlockAdditions.m"; path = "FaceRecognition/UIAlertView+MKBlockAdditions.m"; sourceTree = "<group>"; };
+		9C2FF5EA1716242200CA910D /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Person.h; path = FaceRecognition/Person.h; sourceTree = "<group>"; };
+		9C2FF5EB1716242200CA910D /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Person.m; path = FaceRecognition/Person.m; sourceTree = "<group>"; };
+		9C64E440171C5D0F0022CEE2 /* RecognizedFacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecognizedFacesViewController.h; sourceTree = "<group>"; };
+		9C64E441171C5D0F0022CEE2 /* RecognizedFacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecognizedFacesViewController.m; sourceTree = "<group>"; };
+		9C64E6D2171CA33A0022CEE2 /* brian1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian1.JPG; sourceTree = "<group>"; };
+		9C64E6D3171CA33A0022CEE2 /* brian2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian2.JPG; sourceTree = "<group>"; };
+		9C64E6D4171CA33A0022CEE2 /* brian3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian3.JPG; sourceTree = "<group>"; };
+		9C64E6D5171CA33A0022CEE2 /* brian4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian4.JPG; sourceTree = "<group>"; };
+		9C64E6D6171CA33A0022CEE2 /* brian5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian5.JPG; sourceTree = "<group>"; };
+		9C64E6D7171CA33A0022CEE2 /* brian6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian6.JPG; sourceTree = "<group>"; };
+		9C64E6D8171CA33A0022CEE2 /* brian7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian7.JPG; sourceTree = "<group>"; };
+		9C64E6D9171CA33A0022CEE2 /* brian8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brian8.JPG; sourceTree = "<group>"; };
+		9C64E6DA171CA33A0022CEE2 /* john1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john1.JPG; sourceTree = "<group>"; };
+		9C64E6DB171CA33A0022CEE2 /* john2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john2.JPG; sourceTree = "<group>"; };
+		9C64E6DC171CA33A0022CEE2 /* john3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john3.JPG; sourceTree = "<group>"; };
+		9C64E6DD171CA33A0022CEE2 /* john4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john4.JPG; sourceTree = "<group>"; };
+		9C64E6DE171CA33A0022CEE2 /* john5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john5.JPG; sourceTree = "<group>"; };
+		9C64E6DF171CA33A0022CEE2 /* john6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john6.JPG; sourceTree = "<group>"; };
+		9C64E6E0171CA33A0022CEE2 /* john7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john7.JPG; sourceTree = "<group>"; };
+		9C64E6E1171CA33A0022CEE2 /* john8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john8.JPG; sourceTree = "<group>"; };
+		9C64E6E2171CA33A0022CEE2 /* john9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john9.JPG; sourceTree = "<group>"; };
+		9C64E6E3171CA33A0022CEE2 /* john10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = john10.JPG; sourceTree = "<group>"; };
+		9C64E6E4171CA33A0022CEE2 /* paul1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul1.JPG; sourceTree = "<group>"; };
+		9C64E6E5171CA33A0022CEE2 /* paul2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul2.JPG; sourceTree = "<group>"; };
+		9C64E6E6171CA33A0022CEE2 /* paul3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul3.JPG; sourceTree = "<group>"; };
+		9C64E6E7171CA33A0022CEE2 /* paul4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul4.JPG; sourceTree = "<group>"; };
+		9C64E6E8171CA33A0022CEE2 /* paul5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul5.JPG; sourceTree = "<group>"; };
+		9C64E6E9171CA33A0022CEE2 /* paul6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul6.JPG; sourceTree = "<group>"; };
+		9C64E6EA171CA33A0022CEE2 /* paul7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul7.JPG; sourceTree = "<group>"; };
+		9C64E6EB171CA33A0022CEE2 /* paul9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul9.JPG; sourceTree = "<group>"; };
+		9C64E6EC171CA33A0022CEE2 /* paul10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paul10.JPG; sourceTree = "<group>"; };
+		9CB156C317148D7E00A0045D /* KnownFacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KnownFacesViewController.h; sourceTree = "<group>"; };
+		9CB156C417148D7F00A0045D /* KnownFacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KnownFacesViewController.m; sourceTree = "<group>"; };
+		9CB156C617148D8C00A0045D /* UnknownFacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownFacesViewController.h; sourceTree = "<group>"; };
+		9CB156C717148D8D00A0045D /* UnknownFacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnknownFacesViewController.m; sourceTree = "<group>"; };
+		9CB156C91714945B00A0045D /* PhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
+		9CB156CA1714945B00A0045D /* PhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
+		9CB156CC171498A200A0045D /* FaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceCell.h; sourceTree = "<group>"; };
+		9CB156CD171498A200A0045D /* FaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceCell.m; sourceTree = "<group>"; };
+		9CB156E51714B37F00A0045D /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+Fetch.h"; path = "FaceRecognition/NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
+		9CB156E61714B37F00A0045D /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+Fetch.m"; path = "FaceRecognition/NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
+		9CB156E81714B4A400A0045D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9CB156F71714B60900A0045D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		9CB157051714D19300A0045D /* DetectedFace+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DetectedFace+Additions.h"; path = "FaceRecognition/DetectedFace+Additions.h"; sourceTree = SOURCE_ROOT; };
+		9CB157061714D19300A0045D /* DetectedFace+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DetectedFace+Additions.m"; path = "FaceRecognition/DetectedFace+Additions.m"; sourceTree = SOURCE_ROOT; };
+		9CB157081714D1E700A0045D /* DetectedFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetectedFace.h; path = FaceRecognition/DetectedFace.h; sourceTree = SOURCE_ROOT; };
+		9CB157091714D1E700A0045D /* DetectedFace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetectedFace.m; path = FaceRecognition/DetectedFace.m; sourceTree = SOURCE_ROOT; };
+		9CB157111715BDA500A0045D /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = FaceRecognition/Photo.h; sourceTree = "<group>"; };
+		9CB157121715BDA500A0045D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = FaceRecognition/Photo.m; sourceTree = "<group>"; };
+		9CD5297B171715DF00AF3D97 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
+		9CD5297C171715DF00AF3D97 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
+		9CD5297E1717220500AF3D97 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		9CD5297F1717220500AF3D97 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4CBE4D711655CAC8004B63D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CB156E91714B4A500A0045D /* CoreData.framework in Frameworks */,
+				4C9DEA5E165668CD003DBFB5 /* libsqlite3.dylib in Frameworks */,
+				4C0B18CA1656724C00A95B1E /* AVFoundation.framework in Frameworks */,
+				4C9DEA5C165668C0003DBFB5 /* Accelerate.framework in Frameworks */,
+				4C9DEA5A165668BB003DBFB5 /* AssetsLibrary.framework in Frameworks */,
+				4C9DEA55165668B4003DBFB5 /* CoreImage.framework in Frameworks */,
+				4C9DEA56165668B4003DBFB5 /* CoreMedia.framework in Frameworks */,
+				4C9DEA57165668B4003DBFB5 /* CoreVideo.framework in Frameworks */,
+				4C9DEA58165668B4003DBFB5 /* QuartzCore.framework in Frameworks */,
+				4CBE4D791655CAC8004B63D9 /* UIKit.framework in Frameworks */,
+				4CBE4D7B1655CAC8004B63D9 /* Foundation.framework in Frameworks */,
+				4CBE4D7D1655CAC8004B63D9 /* CoreGraphics.framework in Frameworks */,
+				4C9DEA60165668E2003DBFB5 /* opencv2.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4CBE4D691655CAC8004B63D9 = {
+			isa = PBXGroup;
+			children = (
+				9C2FF5E717160E2200CA910D /* UIAlertView+MKBlockAdditions.h */,
+				9C2FF5E817160E2200CA910D /* UIAlertView+MKBlockAdditions.m */,
+				9CB157111715BDA500A0045D /* Photo.h */,
+				9CB157121715BDA500A0045D /* Photo.m */,
+				9CB156F61714B60800A0045D /* Model.xcdatamodeld */,
+				9C2FF5EA1716242200CA910D /* Person.h */,
+				9C2FF5EB1716242200CA910D /* Person.m */,
+				9CB156E81714B4A400A0045D /* CoreData.framework */,
+				9CB156E51714B37F00A0045D /* NSManagedObjectContext+Fetch.h */,
+				9CB156E61714B37F00A0045D /* NSManagedObjectContext+Fetch.m */,
+				9CB156CF1714ADE100A0045D /* Model */,
+				4CBE4D7E1655CAC8004B63D9 /* FaceRecognition */,
+				4CBE4D771655CAC8004B63D9 /* Frameworks */,
+				4CBE4D751655CAC8004B63D9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4CBE4D751655CAC8004B63D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4CBE4D741655CAC8004B63D9 /* FaceRecognition.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4CBE4D771655CAC8004B63D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C9DEA5F165668E2003DBFB5 /* opencv2.framework */,
+				4C9DEA5D165668CD003DBFB5 /* libsqlite3.dylib */,
+				4C0B18C91656724C00A95B1E /* AVFoundation.framework */,
+				4C9DEA5B165668C0003DBFB5 /* Accelerate.framework */,
+				4C9DEA59165668BB003DBFB5 /* AssetsLibrary.framework */,
+				4C9DEA51165668B4003DBFB5 /* CoreImage.framework */,
+				4C9DEA52165668B4003DBFB5 /* CoreMedia.framework */,
+				4C9DEA53165668B4003DBFB5 /* CoreVideo.framework */,
+				4C9DEA54165668B4003DBFB5 /* QuartzCore.framework */,
+				4CBE4D781655CAC8004B63D9 /* UIKit.framework */,
+				4CBE4D7A1655CAC8004B63D9 /* Foundation.framework */,
+				4CBE4D7C1655CAC8004B63D9 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4CBE4D7E1655CAC8004B63D9 /* FaceRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				9C64E443171C5DD70022CEE2 /* Faces */,
+				4CBE4D871655CAC8004B63D9 /* AppDelegate.h */,
+				4CBE4D881655CAC8004B63D9 /* AppDelegate.m */,
+				4CBE4D901655CAC8004B63D9 /* MainStoryboard.storyboard */,
+				4C0B18CF16568A3800A95B1E /* FaceDetector.h */,
+				4C0B18D016568A3800A95B1E /* FaceDetector.mm */,
+				4CBE4D7F1655CAC8004B63D9 /* Supporting Files */,
+				4C0B18D216568BAA00A95B1E /* OpenCVData.h */,
+				4C0B18D316568BAA00A95B1E /* OpenCVData.mm */,
+				4C0B18D51656944400A95B1E /* haarcascade_frontalface_alt2.xml */,
+				9CB156C317148D7E00A0045D /* KnownFacesViewController.h */,
+				9CB156C417148D7F00A0045D /* KnownFacesViewController.m */,
+				9CB156C617148D8C00A0045D /* UnknownFacesViewController.h */,
+				9CB156C717148D8D00A0045D /* UnknownFacesViewController.m */,
+				9CD5297B171715DF00AF3D97 /* PersonViewController.h */,
+				9CD5297C171715DF00AF3D97 /* PersonViewController.m */,
+				9CD5297E1717220500AF3D97 /* PhotoViewController.h */,
+				9CD5297F1717220500AF3D97 /* PhotoViewController.m */,
+				9CB156C91714945B00A0045D /* PhotoManager.h */,
+				9CB156CA1714945B00A0045D /* PhotoManager.m */,
+				9CB156CC171498A200A0045D /* FaceCell.h */,
+				9CB156CD171498A200A0045D /* FaceCell.m */,
+				9C64E440171C5D0F0022CEE2 /* RecognizedFacesViewController.h */,
+				9C64E441171C5D0F0022CEE2 /* RecognizedFacesViewController.m */,
+			);
+			path = FaceRecognition;
+			sourceTree = "<group>";
+		};
+		4CBE4D7F1655CAC8004B63D9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4CBE4D801655CAC8004B63D9 /* FaceRecognition-Info.plist */,
+				4CBE4D811655CAC8004B63D9 /* InfoPlist.strings */,
+				4CBE4D841655CAC8004B63D9 /* main.m */,
+				4CBE4D861655CAC8004B63D9 /* FaceRecognition-Prefix.pch */,
+				4CBE4D8A1655CAC8004B63D9 /* Default.png */,
+				4CBE4D8C1655CAC8004B63D9 /* Default@2x.png */,
+				4CBE4D8E1655CAC8004B63D9 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C64E443171C5DD70022CEE2 /* Faces */ = {
+			isa = PBXGroup;
+			children = (
+				9C64E6D2171CA33A0022CEE2 /* brian1.JPG */,
+				9C64E6D3171CA33A0022CEE2 /* brian2.JPG */,
+				9C64E6D4171CA33A0022CEE2 /* brian3.JPG */,
+				9C64E6D5171CA33A0022CEE2 /* brian4.JPG */,
+				9C64E6D6171CA33A0022CEE2 /* brian5.JPG */,
+				9C64E6D7171CA33A0022CEE2 /* brian6.JPG */,
+				9C64E6D8171CA33A0022CEE2 /* brian7.JPG */,
+				9C64E6D9171CA33A0022CEE2 /* brian8.JPG */,
+				9C64E6DA171CA33A0022CEE2 /* john1.JPG */,
+				9C64E6DB171CA33A0022CEE2 /* john2.JPG */,
+				9C64E6DC171CA33A0022CEE2 /* john3.JPG */,
+				9C64E6DD171CA33A0022CEE2 /* john4.JPG */,
+				9C64E6DE171CA33A0022CEE2 /* john5.JPG */,
+				9C64E6DF171CA33A0022CEE2 /* john6.JPG */,
+				9C64E6E0171CA33A0022CEE2 /* john7.JPG */,
+				9C64E6E1171CA33A0022CEE2 /* john8.JPG */,
+				9C64E6E2171CA33A0022CEE2 /* john9.JPG */,
+				9C64E6E3171CA33A0022CEE2 /* john10.JPG */,
+				9C64E6E4171CA33A0022CEE2 /* paul1.JPG */,
+				9C64E6E5171CA33A0022CEE2 /* paul2.JPG */,
+				9C64E6E6171CA33A0022CEE2 /* paul3.JPG */,
+				9C64E6E7171CA33A0022CEE2 /* paul4.JPG */,
+				9C64E6E8171CA33A0022CEE2 /* paul5.JPG */,
+				9C64E6E9171CA33A0022CEE2 /* paul6.JPG */,
+				9C64E6EA171CA33A0022CEE2 /* paul7.JPG */,
+				9C64E6EB171CA33A0022CEE2 /* paul9.JPG */,
+				9C64E6EC171CA33A0022CEE2 /* paul10.JPG */,
+			);
+			path = Faces;
+			sourceTree = "<group>";
+		};
+		9CB156CF1714ADE100A0045D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CB157081714D1E700A0045D /* DetectedFace.h */,
+				9CB157091714D1E700A0045D /* DetectedFace.m */,
+				9CB157051714D19300A0045D /* DetectedFace+Additions.h */,
+				9CB157061714D19300A0045D /* DetectedFace+Additions.m */,
+			);
+			name = Model;
+			path = FaceRecognition/Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4CBE4D731655CAC8004B63D9 /* FaceRecognition */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CBE4D981655CAC8004B63D9 /* Build configuration list for PBXNativeTarget "FaceRecognition" */;
+			buildPhases = (
+				4CBE4D701655CAC8004B63D9 /* Sources */,
+				4CBE4D711655CAC8004B63D9 /* Frameworks */,
+				4CBE4D721655CAC8004B63D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceRecognition;
+			productName = FaceRecognition;
+			productReference = 4CBE4D741655CAC8004B63D9 /* FaceRecognition.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4CBE4D6B1655CAC8004B63D9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = 4CBE4D6E1655CAC8004B63D9 /* Build configuration list for PBXProject "FaceRecognition" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4CBE4D691655CAC8004B63D9;
+			productRefGroup = 4CBE4D751655CAC8004B63D9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4CBE4D731655CAC8004B63D9 /* FaceRecognition */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4CBE4D721655CAC8004B63D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CBE4D831655CAC8004B63D9 /* InfoPlist.strings in Resources */,
+				4CBE4D8B1655CAC8004B63D9 /* Default.png in Resources */,
+				4CBE4D8D1655CAC8004B63D9 /* Default@2x.png in Resources */,
+				4CBE4D8F1655CAC8004B63D9 /* Default-568h@2x.png in Resources */,
+				4CBE4D921655CAC8004B63D9 /* MainStoryboard.storyboard in Resources */,
+				4C0B18D61656944400A95B1E /* haarcascade_frontalface_alt2.xml in Resources */,
+				9C64E6ED171CA33A0022CEE2 /* brian1.JPG in Resources */,
+				9C64E6EE171CA33A0022CEE2 /* brian2.JPG in Resources */,
+				9C64E6EF171CA33A0022CEE2 /* brian3.JPG in Resources */,
+				9C64E6F0171CA33A0022CEE2 /* brian4.JPG in Resources */,
+				9C64E6F1171CA33A0022CEE2 /* brian5.JPG in Resources */,
+				9C64E6F2171CA33A0022CEE2 /* brian6.JPG in Resources */,
+				9C64E6F3171CA33A0022CEE2 /* brian7.JPG in Resources */,
+				9C64E6F4171CA33A0022CEE2 /* brian8.JPG in Resources */,
+				9C64E6F5171CA33A0022CEE2 /* john1.JPG in Resources */,
+				9C64E6F6171CA33A0022CEE2 /* john2.JPG in Resources */,
+				9C64E6F7171CA33A0022CEE2 /* john3.JPG in Resources */,
+				9C64E6F8171CA33A0022CEE2 /* john4.JPG in Resources */,
+				9C64E6F9171CA33A0022CEE2 /* john5.JPG in Resources */,
+				9C64E6FA171CA33A0022CEE2 /* john6.JPG in Resources */,
+				9C64E6FB171CA33A0022CEE2 /* john7.JPG in Resources */,
+				9C64E6FC171CA33A0022CEE2 /* john8.JPG in Resources */,
+				9C64E6FD171CA33A0022CEE2 /* john9.JPG in Resources */,
+				9C64E6FE171CA33A0022CEE2 /* john10.JPG in Resources */,
+				9C64E6FF171CA33A0022CEE2 /* paul1.JPG in Resources */,
+				9C64E700171CA33A0022CEE2 /* paul2.JPG in Resources */,
+				9C64E701171CA33A0022CEE2 /* paul3.JPG in Resources */,
+				9C64E702171CA33A0022CEE2 /* paul4.JPG in Resources */,
+				9C64E703171CA33A0022CEE2 /* paul5.JPG in Resources */,
+				9C64E704171CA33A0022CEE2 /* paul6.JPG in Resources */,
+				9C64E705171CA33A0022CEE2 /* paul7.JPG in Resources */,
+				9C64E706171CA33A0022CEE2 /* paul9.JPG in Resources */,
+				9C64E707171CA33A0022CEE2 /* paul10.JPG in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4CBE4D701655CAC8004B63D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CBE4D851655CAC8004B63D9 /* main.m in Sources */,
+				4CBE4D891655CAC8004B63D9 /* AppDelegate.m in Sources */,
+				4C0B18D116568A3800A95B1E /* FaceDetector.mm in Sources */,
+				4C0B18D416568BAA00A95B1E /* OpenCVData.mm in Sources */,
+				9CB156C517148D7F00A0045D /* KnownFacesViewController.m in Sources */,
+				9CB156C817148D8D00A0045D /* UnknownFacesViewController.m in Sources */,
+				9CB156CB1714945C00A0045D /* PhotoManager.m in Sources */,
+				9CB156CE171498A300A0045D /* FaceCell.m in Sources */,
+				9CB156E71714B37F00A0045D /* NSManagedObjectContext+Fetch.m in Sources */,
+				9CB156F81714B60900A0045D /* Model.xcdatamodeld in Sources */,
+				9CB157071714D19300A0045D /* DetectedFace+Additions.m in Sources */,
+				9CB1570A1714D1E700A0045D /* DetectedFace.m in Sources */,
+				9CB157131715BDA600A0045D /* Photo.m in Sources */,
+				9C2FF5E917160E2200CA910D /* UIAlertView+MKBlockAdditions.m in Sources */,
+				9C2FF5EC1716242200CA910D /* Person.m in Sources */,
+				9CD5297D171715DF00AF3D97 /* PersonViewController.m in Sources */,
+				9CD529801717220500AF3D97 /* PhotoViewController.m in Sources */,
+				9C64E442171C5D0F0022CEE2 /* RecognizedFacesViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4CBE4D811655CAC8004B63D9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4CBE4D821655CAC8004B63D9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4CBE4D901655CAC8004B63D9 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4CBE4D911655CAC8004B63D9 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4CBE4D961655CAC8004B63D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4CBE4D971655CAC8004B63D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4CBE4D991655CAC8004B63D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceRecognition/FaceRecognition-Prefix.pch";
+				INFOPLIST_FILE = "FaceRecognition/FaceRecognition-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4CBE4D9A1655CAC8004B63D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceRecognition/FaceRecognition-Prefix.pch";
+				INFOPLIST_FILE = "FaceRecognition/FaceRecognition-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4CBE4D6E1655CAC8004B63D9 /* Build configuration list for PBXProject "FaceRecognition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CBE4D961655CAC8004B63D9 /* Debug */,
+				4CBE4D971655CAC8004B63D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CBE4D981655CAC8004B63D9 /* Build configuration list for PBXNativeTarget "FaceRecognition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CBE4D991655CAC8004B63D9 /* Debug */,
+				4CBE4D9A1655CAC8004B63D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9CB156F61714B60800A0045D /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9CB156F71714B60900A0045D /* Model.xcdatamodel */,
+			);
+			currentVersion = 9CB156F71714B60900A0045D /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = FaceRecognition/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4CBE4D6B1655CAC8004B63D9 /* Project object */;
+}
