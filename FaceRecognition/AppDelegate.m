@@ -126,7 +126,7 @@ void uncaughtExceptionHandler(NSException *exception)
         {
             threadManagedObjectContext = [[NSManagedObjectContext alloc] init];
             [threadManagedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-            [threadManagedObjectContext setMergePolicy: NSMergeByPropertyStoreTrumpMergePolicy];
+            [threadManagedObjectContext setMergePolicy: NSMergeByPropertyObjectTrumpMergePolicy];
             [[thisThread threadDictionary] setObject:threadManagedObjectContext forKey:@"context"];
         }
         return threadManagedObjectContext;
