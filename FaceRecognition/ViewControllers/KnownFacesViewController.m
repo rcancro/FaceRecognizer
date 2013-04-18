@@ -119,7 +119,7 @@
     
     NSManagedObjectContext *context = [AppDelegate appDelegate].managedObjectContext;
     Person *person = (Person *)[context objectWithID:[self.knownPeople objectAtIndex:indexPath.row]];
-    DetectedFace *face = [person.faces anyObject];
+    DetectedFace *face = [[person.faces allObjects] objectAtIndex:0];
     
     myCell.imageView.image = [face faceFromImage];
 

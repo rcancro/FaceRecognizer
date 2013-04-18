@@ -40,7 +40,11 @@
 
 - (NSArray *)knownPeople:(NSManagedObjectContext *)context
 {
-    NSSet *people = [context fetchObjectsForEntityName:@"Person" withPredicate:nil];
+    NSSet *peopleSet = [context fetchObjectsForEntityName:@"Person" withPredicate:nil];
+    NSArray *people = [[peopleSet allObjects] sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(Person *obj1, Person *obj2) {
+        return [obj1.name compare:obj2.name];
+    }];
+    
     NSMutableArray *objectIds = [NSMutableArray arrayWithCapacity:[people count]];
     for (Person *p in people)
     {
