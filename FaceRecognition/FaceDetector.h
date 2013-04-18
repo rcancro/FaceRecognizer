@@ -22,8 +22,8 @@ typedef void (^FaceDetectionCompletion)();
 + (FaceDetector *)sharedInstance;
 
 - (NSArray *)findFacesInImage:(UIImage *)image;
-- (void)startLookingForFaces:(FaceDetectionProgress)progressBlock completionBlock:(FaceDetectionCompletion)completionBlock managedObjectContext:(NSManagedObjectContext *)context;
-- (void)trainRecognizer;
+- (void)startLookingForFaces:(FaceDetectionProgress)progressBlock completionBlock:(FaceDetectionCompletion)completionBlock;
+- (BOOL)trainRecognizer;
 
 - (NSDictionary *)predictFace:(NSManagedObjectID *)faceId;
 

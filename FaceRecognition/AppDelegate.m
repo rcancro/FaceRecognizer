@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSString *persistentStorePath;
+@property (strong, nonatomic) NSMutableDictionary *threadContexts;
 @end
 
 @implementation AppDelegate
@@ -23,18 +24,19 @@
 @synthesize persistentStoreCoordinator;
 @synthesize persistentStorePath;
 
+void uncaughtExceptionHandler(NSException *exception)
+{
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
+    NSPersistentStoreCoordinator *s = self.persistentStoreCoordinator;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundSave:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
-    [self populateCoreData];
-    [[FaceDetector sharedInstance] startLookingForFaces:^(int photoCount, int totalPhotos) {
-        //NSLog(@"%d of %d", photoCount, totalPhotos);
-    }  completionBlock:nil managedObjectContext:[self managedObjectContext]];
-    [[FaceDetector sharedInstance] trainRecognizer];
     return YES;
 }
 							
@@ -67,6 +69,8 @@
 
 - (void)backgroundSave:(NSNotification *)n
 {
+    if ([n object] == [self managedObjectContext]) return;
+    
     if (![NSThread isMainThread])
     {
         [self performSelectorOnMainThread:@selector(backgroundSave:) withObject:n waitUntilDone:YES];
@@ -74,6 +78,7 @@
     }
     
     [[self managedObjectContext] mergeChangesFromContextDidSaveNotification:n];
+    NSLog(@"merged save");
 }
 
 - (NSString *)persistentStorePath
@@ -121,6 +126,7 @@
         {
             threadManagedObjectContext = [[NSManagedObjectContext alloc] init];
             [threadManagedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+            [threadManagedObjectContext setMergePolicy: NSMergeByPropertyStoreTrumpMergePolicy];
             [[thisThread threadDictionary] setObject:threadManagedObjectContext forKey:@"context"];
         }
         return threadManagedObjectContext;
@@ -142,7 +148,7 @@
         NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
         NSFileManager *fm = [NSFileManager defaultManager];
         NSArray *dirContents = [fm contentsOfDirectoryAtPath:bundleRoot error:nil];
-        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.JPG' or self ENDSWITH '.PNG'"];
+        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
         NSArray *images = [dirContents filteredArrayUsingPredicate:fltr];
         
         for (NSString *str in images)

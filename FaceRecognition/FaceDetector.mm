@@ -17,7 +17,7 @@
 
 NSString * const kFaceCascadeFilename = @"haarcascade_frontalface_alt2";
 cv::Ptr<cv::FaceRecognizer> recognizer;
-CGSize faceSize = CGSizeMake(200, 200);
+CGSize faceSize = CGSizeMake(100, 100);
 
 const int kHaarOptions =  0;
 
@@ -42,33 +42,20 @@ static cv::CascadeClassifier _faceCascade;
     return sharedInstance;
 }
 
-- (NSString *)recognizerPath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"recognizer"];
-}
-
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        NSString *faceCascadePath = [[NSBundle mainBundle] pathForResource:kFaceCascadeFilename ofType:@"xml"];
-        
-        if (!_faceCascade.load([faceCascadePath UTF8String]))
-        {
-            NSLog(@"Could not load face cascade: %@", faceCascadePath);
-        }
-        
-        recognizer = cv::createEigenFaceRecognizer();
+        recognizer = cv::createEigenFaceRecognizer(80, 7000);
     }
     
     return self;
 }
 
-- (void)trainRecognizer
+- (BOOL)trainRecognizer
 {
+    BOOL trained = NO;
     std::vector<cv::Mat> images;
     std::vector<int> labels;
     
@@ -84,6 +71,11 @@ static cv::CascadeClassifier _faceCascade;
         if (![self.objectIdLookup objectForKey:key])
         {
             NSString *value = [NSString stringWithFormat:@"%d", faceIndex];
+            if (!key || !value)
+            {
+                int i=0;
+                i++;
+            }
             [self.objectIdLookup setValue:value forKey:key];
             faceIndex++;
         }
@@ -95,16 +87,15 @@ static cv::CascadeClassifier _faceCascade;
         images.push_back(faceData);
         int label = [[self.objectIdLookup objectForKey:key] integerValue];
         labels.push_back(label);
-        NSLog(@"image: %@ label: %d", f.photo.imagePath, label);
     }
     
     if (images.size() > 1)
     {
+        trained = YES;
         recognizer->train(images, labels);
-
-//        std::string path([[self recognizerPath] UTF8String]);
-//        recognizer->save(path);
     }
+    
+    return trained;
 }
 
 - (NSDictionary *)predictFace:(NSManagedObjectID *)faceId
@@ -118,7 +109,6 @@ static cv::CascadeClassifier _faceCascade;
     cv::Mat faceData = [OpenCVData cvMatFromUIImage:face];
 
     recognizer->predict(faceData, predictedLabel, confidence);
-    NSLog(@"label: %d", predictedLabel);
     
     NSManagedObjectID *personId = nil;
     if (predictedLabel != -1)
@@ -133,49 +123,84 @@ static cv::CascadeClassifier _faceCascade;
         }
     }
     
-    NSDictionary *ret = [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personId", [NSNumber numberWithDouble:confidence], @"confidence", nil];
-    return ret;
+    if (personId)
+    {
+        return [NSDictionary dictionaryWithObjectsAndKeys:personId, @"personId", [NSNumber numberWithDouble:confidence], @"confidence", nil];
+    }
+    return nil;
 }
 
 
-- (void)startLookingForFaces:(FaceDetectionProgress)progressBlock completionBlock:(FaceDetectionCompletion)completionBlock managedObjectContext:(NSManagedObjectContext *)context
+- (void)startLookingForFaces:(FaceDetectionProgress)progressBlock completionBlock:(FaceDetectionCompletion)completionBlock
 {
-    // get all photos that do not have faces
-    NSSet *allPhotos = [context fetchObjectsForEntityName:@"Photo" withPredicate:[NSPredicate predicateWithFormat:@"faceDetectionRun = 0"]];
-    NSInteger totalPhotos = [allPhotos count];
-    NSInteger photoIndex = 0;
-    
-    if (progressBlock)
-        progressBlock(photoIndex, totalPhotos);
-    
-    
-    
-    for (Photo *p in allPhotos)
-    {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
-        NSArray *rects = [[FaceDetector sharedInstance] findFacesInImage:[UIImage imageNamed:p.imagePath]];
-        NSMutableSet *faces = [NSMutableSet set];
-        for (NSValue *v in rects)
+        NSManagedObjectContext *context = [[AppDelegate appDelegate] managedObjectContext];
+        // get all photos that do not have faces
+        NSSet *allPhotos = [context fetchObjectsForEntityName:@"Photo" withPredicate:nil];
+        
+        if ([allPhotos count] == 0)
         {
-            DetectedFace *faceObject = (DetectedFace *)[NSEntityDescription insertNewObjectForEntityForName:@"DetectedFace" inManagedObjectContext:context];
-            [faceObject setRect:[v CGRectValue]];
-            faceObject.photo = p;
-            [faces addObject:faceObject];
+            // need to populate the DB
+            NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
+            NSFileManager *fm = [NSFileManager defaultManager];
+            NSArray *dirContents = [fm contentsOfDirectoryAtPath:bundleRoot error:nil];
+            NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
+            NSArray *images = [dirContents filteredArrayUsingPredicate:fltr];
             
+            for (NSString *str in images)
+            {
+                Photo *photoObject = (Photo *)[NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:context];
+                photoObject.imagePath = str;
+            }
+            [context save:nil];
         }
         
-        p.faceDetectionRun = [NSNumber numberWithBool:YES];
-        p.faces = faces;
-        [context save:nil];
+        NSSet *newPhotos = [context fetchObjectsForEntityName:@"Photo" withPredicate:[NSPredicate predicateWithFormat:@"faceDetectionRun = 0"]];
+        NSInteger totalPhotos = [newPhotos count];
+        NSInteger photoIndex = 0;
         
-        photoIndex++;
-        NSLog(@"%d of %d found: %d faces", photoIndex, totalPhotos, [faces count]);
-        if (progressBlock)
-            progressBlock(photoIndex, totalPhotos);
-    }
-    
-    if (progressBlock)
-        progressBlock(totalPhotos, totalPhotos);
+        for (Photo *p in newPhotos)
+        {
+            
+            @autoreleasepool {
+                NSString *path = [[NSBundle mainBundle] pathForResource:p.imagePath ofType:nil];
+                UIImage *photo = [[UIImage alloc] initWithContentsOfFile:path];
+                
+                NSArray *rects = [[FaceDetector sharedInstance] findFacesInImage:photo];
+                NSMutableSet *faces = [NSMutableSet set];
+                for (NSValue *v in rects)
+                {
+                    DetectedFace *faceObject = (DetectedFace *)[NSEntityDescription insertNewObjectForEntityForName:@"DetectedFace" inManagedObjectContext:context];
+                    [faceObject setRect:[v CGRectValue]];
+                    faceObject.photo = p;
+                    [faces addObject:faceObject];
+                    
+                }
+                
+                p.faceDetectionRun = [NSNumber numberWithBool:YES];
+                p.faces = faces;
+                [context save:nil];
+                
+                photoIndex++;
+                NSLog(@"%d of %d found: %d faces", photoIndex, totalPhotos, [faces count]);
+                if (progressBlock)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        progressBlock(photoIndex, totalPhotos);
+                    });
+                }
+            }
+        }
+        
+        if (completionBlock)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock();
+            });
+        }
+        
+    });
 }
 
 - (NSArray *)findFacesInImage:(UIImage *)image

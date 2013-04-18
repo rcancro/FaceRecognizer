@@ -15,6 +15,8 @@
 #import "Photo.h"
 #import "PersonViewController.h"
 #import "NSManagedObjectContext+Fetch.h"
+#import "FaceDetector.h"
+#import "MBProgressHUD.h"
 
 @interface KnownFacesViewController ()
 @property (nonatomic, strong) NSArray *knownPeople;
@@ -34,6 +36,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    __block MBProgressHUD *hud = nil;
+    [[FaceDetector sharedInstance] startLookingForFaces:^(int photoCount, int totalPhotos) {
+        
+        if (!hud)
+        {
+            hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+            hud.mode = MBProgressHUDModeDeterminate;
+            hud.labelText = @"Looking for faces";
+            hud.removeFromSuperViewOnHide = YES;
+            [self.navigationController.view addSubview:hud];
+            [hud show:YES];
+        }
+        hud.progress = (float)photoCount/(float)totalPhotos;
+    }  completionBlock:^{
+        [hud hide:YES];
+        [[FaceDetector sharedInstance] trainRecognizer];
+    }];
+    [[FaceDetector sharedInstance] trainRecognizer];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

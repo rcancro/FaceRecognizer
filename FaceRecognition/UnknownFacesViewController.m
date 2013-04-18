@@ -16,6 +16,7 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "Person.h"
 #import "FaceDetector.h"
+#import "MBProgressHUD.h"
 
 @interface UnknownFacesViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) NSMutableArray *unknownFaces;
@@ -136,18 +137,48 @@
     [av show];
 }
 
-- (IBAction)guess:(id)sender
+- (IBAction)rescan:(id)sender
 {
-    self.guesses = [NSMutableDictionary dictionary];
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    hud.mode = MBProgressHUDModeDeterminate;
+    hud.labelText = @"Reseting Database";
+    hud.removeFromSuperViewOnHide = YES;
+    [self.navigationController.view addSubview:hud];
+    [hud show:YES];
     
-    for (NSManagedObjectID *faceId in self.unknownFaces)
-    {
-        NSManagedObjectContext *context = [AppDelegate appDelegate].managedObjectContext;
-        DetectedFace *face = (DetectedFace *)[context objectWithID:faceId];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
-        [self.guesses setValue:[[FaceDetector sharedInstance] predictFace:[face objectID]] forKey:[[faceId URIRepresentation] absoluteString]];
-    }
-    [self.collectionView reloadData];
+        NSManagedObjectContext *context = [AppDelegate appDelegate].managedObjectContext;
+        NSSet *detectedFaces = [[[AppDelegate appDelegate] managedObjectContext] fetchObjectsForEntityName:@"DetectedFace" withPredicate:nil];
+        for (DetectedFace *face in detectedFaces)
+        {
+            [context deleteObject:face];
+        }
+        [context save:nil];
+        
+        NSSet *people = [[[AppDelegate appDelegate] managedObjectContext] fetchObjectsForEntityName:@"Person" withPredicate:nil];
+        for (Person *p in people)
+        {
+            [context deleteObject:p];
+        }
+        [context save:nil];
+        
+        NSSet *allPhotos = [[[AppDelegate appDelegate] managedObjectContext] fetchObjectsForEntityName:@"Photo" withPredicate:nil];
+        for (Photo *p in allPhotos)
+        {
+            p.faceDetectionRun = [NSNumber numberWithBool:NO];
+        }
+        [context save:nil];
+        
+        [[FaceDetector sharedInstance] startLookingForFaces:^(int photoCount, int totalPhotos) {
+            hud.labelText = @"Finding Faces";
+            hud.progress = (float)photoCount/(float)totalPhotos;
+        } completionBlock:^{
+            [hud hide:YES];
+            [[FaceDetector sharedInstance] trainRecognizer];
+        }];
+    });
+    
 }
 
 @end

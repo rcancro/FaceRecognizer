@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63b" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DetectedFace" representedClassName="DetectedFace" syncable="YES">
         <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="x" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="y" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="No Action" destinationEntity="Person" inverseName="faces" inverseEntity="Person" syncable="YES"/>
-        <relationship name="photo" optional="YES" minCount="1" maxCount="1" deletionRule="No Action" destinationEntity="Photo" inverseName="faces" inverseEntity="Photo" syncable="YES"/>
+        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="faces" inverseEntity="Person" syncable="YES"/>
+        <relationship name="photo" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Photo" inverseName="faces" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <entity name="Person" representedClassName="Person" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="faces" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="DetectedFace" inverseName="person" inverseEntity="DetectedFace" syncable="YES"/>
+        <relationship name="faces" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DetectedFace" inverseName="person" inverseEntity="DetectedFace" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="faceDetectionRun" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="faces" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="DetectedFace" inverseName="photo" inverseEntity="DetectedFace" syncable="YES"/>
+        <relationship name="faces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DetectedFace" inverseName="photo" inverseEntity="DetectedFace" syncable="YES"/>
     </entity>
     <elements>
         <element name="DetectedFace" positionX="142" positionY="135" width="128" height="135"/>
         <element name="Person" positionX="-81" positionY="348" width="191" height="75"/>
-        <element name="Photo" positionX="-281" positionY="204" width="128" height="88"/>
+        <element name="Photo" positionX="-281" positionY="204" width="128" height="90"/>
     </elements>
 </model>
