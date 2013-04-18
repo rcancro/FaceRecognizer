@@ -128,11 +128,11 @@
             </objects>
             <point key="canvasLocation" x="2037" y="-315"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Known Faces-->
         <scene sceneID="VbT-4v-7I5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="PPn-sS-Uom" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="jje-o5-931"/>
+                    <tabBarItem key="tabBarItem" title="Known Faces" id="jje-o5-931"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ilb-Cw-blI">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -185,11 +185,6 @@
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Unknown Faces" id="ouc-w4-4e2"/>
                     <navigationItem key="navigationItem" title="Unknown Faces" id="rhD-FM-DJV">
-                        <barButtonItem key="leftBarButtonItem" title="Guess" id="MPr-ha-c2U">
-                            <connections>
-                                <action selector="guess:" destination="scL-nt-g9m" id="hRf-pz-jUv"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Rescan" id="N6m-EL-uqs">
                             <connections>
                                 <action selector="rescan:" destination="scL-nt-g9m" id="w2k-3C-0lW"/>
@@ -221,11 +216,11 @@
             </objects>
             <point key="canvasLocation" x="110" y="132"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Unknown Faces-->
         <scene sceneID="fTY-VP-vlX">
             <objects>
                 <navigationController definesPresentationContext="YES" id="4cy-mP-hzn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="4kF-SK-YRE"/>
+                    <tabBarItem key="tabBarItem" title="Unknown Faces" id="4kF-SK-YRE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oy1-gJ-vj8">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -235,13 +230,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fM6-pP-5B0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="582" y="496"/>
+            <point key="canvasLocation" x="650" y="622"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Guesses-->
         <scene sceneID="aii-PC-dhg">
             <objects>
                 <navigationController definesPresentationContext="YES" id="spM-rv-TQn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Kp1-o7-sPK"/>
+                    <tabBarItem key="tabBarItem" title="Guesses" id="Kp1-o7-sPK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kcC-Dy-I57">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -320,20 +315,6 @@
             </objects>
             <point key="canvasLocation" x="1082" y="1387"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ecv-JA-GsO">
-            <objects>
-                <viewController id="jzw-Ub-P12" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="G8d-TP-uxL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VgP-aL-NYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <classes>
         <class className="FaceCell" superclassName="UICollectionViewCell">
@@ -381,9 +362,6 @@
         </class>
         <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-        <class className="UICollectionViewLayout" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
         </class>
         <class className="UnknownFacesViewController" superclassName="UICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UnknownFacesViewController.h"/>
