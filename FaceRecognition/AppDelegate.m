@@ -33,7 +33,12 @@ void uncaughtExceptionHandler(NSException *exception)
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSPersistentStoreCoordinator *s = self.persistentStoreCoordinator;
+    
+    // set up the persistent store
+    NSURL *storeUrl = [NSURL fileURLWithPath:self.persistentStorePath];
+    self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
+    [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundSave:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
@@ -69,7 +74,7 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)backgroundSave:(NSNotification *)n
 {
-    if ([n object] == [self managedObjectContext]) return;
+    if ([n object] == managedObjectContext) return;
     
     if (![NSThread isMainThread])
     {
@@ -107,11 +112,8 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (NSManagedObjectContext *)managedObjectContext
 {
-    
-    NSThread * thisThread = [NSThread currentThread];
-    if (thisThread == [NSThread mainThread])
+    if ([NSThread currentThread] == [NSThread mainThread])
     {
-        //Main thread just return default context
         if (managedObjectContext == nil)
         {
             managedObjectContext = [[NSManagedObjectContext alloc] init];
@@ -119,18 +121,9 @@ void uncaughtExceptionHandler(NSException *exception)
         }
         return managedObjectContext;
     }
-    else
-    {
-        NSManagedObjectContext * threadManagedObjectContext = [[thisThread threadDictionary] objectForKey:@"context"];
-        if (threadManagedObjectContext == nil)
-        {
-            threadManagedObjectContext = [[NSManagedObjectContext alloc] init];
-            [threadManagedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-            [threadManagedObjectContext setMergePolicy: NSMergeByPropertyObjectTrumpMergePolicy];
-            [[thisThread threadDictionary] setObject:threadManagedObjectContext forKey:@"context"];
-        }
-        return threadManagedObjectContext;
-    }
+    
+    NSAssert(0, @"should only be giving out this context on the main thread");
+    return nil;
 }
 
 + (AppDelegate *)appDelegate

@@ -17,6 +17,7 @@
 #import "FaceCell.h"
 #import "UIAlertView+MKBlockAdditions.h"
 #import "RecognizedFaceHeader.h"
+#import "FaceRecognitionOperation.h"
 
 static const double kConfidenceThreshold = 3200.0;
 
@@ -178,50 +179,23 @@ static const double kConfidenceThreshold = 3200.0;
     [self.navigationController.view addSubview:hud];
     [hud show:YES];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        
-        if ([[FaceDetector sharedInstance] trainRecognizer])
-        {
-            self.guesses = [NSMutableDictionary dictionary];
-            NSArray *unknownFaces = [[PhotoManager sharedInstance] unknownFaces:[AppDelegate appDelegate].managedObjectContext];
-            float totalFaces = (float)[unknownFaces count];
-            int index = 0;
-            
-            for (NSManagedObjectID *faceId in unknownFaces)
-            {
-                NSManagedObjectContext *context = [AppDelegate appDelegate].managedObjectContext;
-                DetectedFace *face = (DetectedFace *)[context objectWithID:faceId];
-                
-                NSDictionary *d = [[FaceDetector sharedInstance] predictFace:[face objectID]];
-                if (d && [[d objectForKey:@"confidence"] doubleValue] < kConfidenceThreshold)
-                {
-                    NSManagedObjectID *personId = [d objectForKey:@"personId"];
-                    Person *p = (Person *)[context objectWithID:personId];
-                    
-                    NSString *faceIdStr = [[faceId URIRepresentation] absoluteString];
-                    NSMutableArray *array = [self.guesses objectForKey:p.name];
-                    if (!array)
-                    {
-                        array = [NSMutableArray array];
-                    }
-                    [array addObject:faceIdStr];
-                    [self.guesses setObject:array forKey:p.name];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    hud.progress = (float)index/totalFaces;
-                });
-                index++;
-            }
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [hud hide:YES];
-            self.sortedKeys = [[self.guesses allKeys] sortedArrayUsingSelector:@selector(compare:)];
-            [self.collectionView reloadData];
-        });
-        
-    });
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    queue.name = @"FaceRecognition";
+    
+    FaceRecognitionOperation *op = [[FaceRecognitionOperation alloc] init];
+    op.progressUIBlock = ^(int currentFace, int totalFaces) {
+        hud.progress = (float)currentFace/(float)totalFaces;
+    };
+    
+    op.completionUIBlock = ^(NSDictionary *predictions) {
+        [hud hide:YES];
+        self.guesses = [NSMutableDictionary dictionaryWithDictionary:predictions];
+        self.sortedKeys = [[self.guesses allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        [self.collectionView reloadData];
+    };
+    
+    [queue addOperation:op];
 }
 
 @end

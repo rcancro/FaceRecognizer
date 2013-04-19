@@ -18,6 +18,8 @@
 #import "FaceDetector.h"
 #import "MBProgressHUD.h"
 
+#import "FaceDetectionOperation.h"
+
 @interface KnownFacesViewController ()
 @property (nonatomic, strong) NSArray *knownPeople;
 @end
@@ -38,7 +40,11 @@
     [super viewDidLoad];
     
     __block MBProgressHUD *hud = nil;
-    [[FaceDetector sharedInstance] startLookingForFaces:^(int photoCount, int totalPhotos) {
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    queue.name = @"faceDetection";
+    FaceDetectionOperation *faceDetectionOp = [[FaceDetectionOperation alloc] init];
+    faceDetectionOp.progressUIBlock = ^(int photoCount, int totalPhotos) {
         
         if (!hud)
         {
@@ -50,12 +56,12 @@
             [hud show:YES];
         }
         hud.progress = (float)photoCount/(float)totalPhotos;
-    }  completionBlock:^{
-        [hud hide:YES];
-        [[FaceDetector sharedInstance] trainRecognizer];
-    }];
-    [[FaceDetector sharedInstance] trainRecognizer];
+    };
     
+    faceDetectionOp.completionBlock = ^{
+        [hud hide:YES];
+    };
+    [queue addOperation:faceDetectionOp];
 }
 
 - (void)viewWillAppear:(BOOL)animated

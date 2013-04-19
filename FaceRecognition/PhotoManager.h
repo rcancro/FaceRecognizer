@@ -12,7 +12,6 @@
 @interface PhotoManager : NSObject
 + (PhotoManager *)sharedInstance;
 - (NSArray *)knownPeople:(NSManagedObjectContext *)context;
-
 - (NSArray *)unknownFaces:(NSManagedObjectContext *)context;
 - (NSArray *)photosForPerson:(NSManagedObjectID *)personId context:(NSManagedObjectContext *)context;
 @end
