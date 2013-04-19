@@ -92,7 +92,7 @@
                 }
                 
                 photoIndex++;
-                NSLog(@"%d of %d found: %d faces", photoIndex, totalPhotos, [faces count]);
+                //NSLog(@"%d of %d found: %d faces", photoIndex, totalPhotos, [faces count]);
                 
                 if (self.progressBgBlock)
                 {
@@ -108,6 +108,7 @@
             }
         }
         
+        [self.context save:nil];
         if (self.completionBgBlock)
         {
             self.completionBgBlock(self.context);

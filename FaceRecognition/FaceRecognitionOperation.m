@@ -17,7 +17,7 @@
 #import <opencv2/contrib/contrib.hpp>
 #import <opencv2/highgui/cap_ios.h>
 
-static const double kConfidenceThreshold = 3200.0;
+const double kDefaultConfidenceThreshold = 3200.0;
 
 @interface FaceRecognitionOperation()
 @property (nonatomic, strong) NSMutableDictionary *people;
@@ -26,6 +26,15 @@ static const double kConfidenceThreshold = 3200.0;
 @end
 
 @implementation FaceRecognitionOperation
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        self.threshold = kDefaultConfidenceThreshold;
+    }
+    return self;
+}
 
 - (void)main
 {
@@ -74,7 +83,7 @@ static const double kConfidenceThreshold = 3200.0;
                 DetectedFace *face = (DetectedFace *)[self.context objectWithID:faceId];
                 
                 NSDictionary *d = [[FaceRecognizer sharedInstance] predictionForImage:[face faceFromImageOfSize:faceSize]];
-                if (d && [[d objectForKey:@"confidence"] doubleValue] < kConfidenceThreshold)
+                if (d && [[d objectForKey:@"confidence"] doubleValue] < self.threshold)
                 {
                     NSString *name = [d objectForKey:@"label"];
                     Person *p = (Person *)[self.context fetchObjectForEntityName:@"Person" withPredicate:[NSPredicate predicateWithFormat:@"name = %@", name]];

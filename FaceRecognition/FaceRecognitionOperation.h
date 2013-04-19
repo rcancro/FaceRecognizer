@@ -17,6 +17,8 @@ typedef void (^FaceRecognitionProgress)(NSManagedObjectContext *context);
 typedef void (^FaceRecognitionUICompletion)(NSDictionary *predictions);
 typedef void (^FaceRecognitionCompletion)(NSManagedObjectContext *context);
 
+extern const double kDefaultConfidenceThreshold;
+
 @interface FaceRecognitionOperation : NSOperation
 
 @property (nonatomic, copy) FaceRecognitionStart startupBgBlock;
@@ -28,5 +30,7 @@ typedef void (^FaceRecognitionCompletion)(NSManagedObjectContext *context);
 @property (nonatomic, copy) FaceRecognitionUICompletion completionUIBlock;
 // don't use the built in completion block so we can make sure this runs on a bg thread
 @property (nonatomic, copy) FaceRecognitionCompletion completionBgBlock;
+
+@property (nonatomic, assign) double threshold;
 
 @end

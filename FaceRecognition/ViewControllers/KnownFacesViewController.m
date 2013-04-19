@@ -48,11 +48,11 @@
         
         if (!hud)
         {
-            hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+            hud = [[MBProgressHUD alloc] initWithView:self.tabBarController.view];
             hud.mode = MBProgressHUDModeDeterminate;
             hud.labelText = @"Looking for faces";
             hud.removeFromSuperViewOnHide = YES;
-            [self.navigationController.view addSubview:hud];
+            [self.tabBarController.view addSubview:hud];
             [hud show:YES];
         }
         hud.progress = (float)photoCount/(float)totalPhotos;

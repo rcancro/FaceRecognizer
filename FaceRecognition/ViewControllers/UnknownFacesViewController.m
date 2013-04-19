@@ -138,11 +138,11 @@
 
 - (IBAction)rescan:(id)sender
 {
-    __block MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    __block MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.tabBarController.view];
     hud.mode = MBProgressHUDModeDeterminate;
     hud.labelText = @"Reseting Database";
     hud.removeFromSuperViewOnHide = YES;
-    [self.navigationController.view addSubview:hud];
+    [self.tabBarController.view addSubview:hud];
     [hud show:YES];
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];

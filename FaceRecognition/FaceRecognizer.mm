@@ -85,6 +85,7 @@ static cv::Ptr<cv::FaceRecognizer> recognizer;
     recognizer->predict(faceData, predictedLabel, confidence);
     
     NSString *label = nil;
+    //NSLog(@"face detected! label: %d confidence: %f", predictedLabel, confidence);
     if (predictedLabel != -1)
     {
         for (NSString *key in [self.labelLookup allKeys])

@@ -19,11 +19,10 @@
 #import "RecognizedFaceHeader.h"
 #import "FaceRecognitionOperation.h"
 
-static const double kConfidenceThreshold = 3200.0;
-
 @interface RecognizedFacesViewController ()
 @property (nonatomic, strong) NSMutableDictionary *guesses;
 @property (nonatomic, strong) NSArray *sortedKeys;
+@property (nonatomic, assign) double threshold;
 @end
 
 @implementation RecognizedFacesViewController
@@ -40,6 +39,7 @@ static const double kConfidenceThreshold = 3200.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.threshold = kDefaultConfidenceThreshold;
     [self guess:nil];
 }
 
@@ -170,13 +170,15 @@ static const double kConfidenceThreshold = 3200.0;
     return headerView;
 }
 
+#pragma mark - actions
+
 - (IBAction)guess:(id)sender
 {
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.tabBarController.view];
     hud.mode = MBProgressHUDModeDeterminate;
     hud.labelText = @"Finding Matches";
     hud.removeFromSuperViewOnHide = YES;
-    [self.navigationController.view addSubview:hud];
+    [self.tabBarController.view addSubview:hud];
     [hud show:YES];
     
     
@@ -194,8 +196,29 @@ static const double kConfidenceThreshold = 3200.0;
         self.sortedKeys = [[self.guesses allKeys] sortedArrayUsingSelector:@selector(compare:)];
         [self.collectionView reloadData];
     };
+    op.threshold = self.threshold;
     
     [queue addOperation:op];
+}
+
+- (IBAction)changeThreshold:(id)sender
+{
+    UIAlertView *av = [UIAlertView createAlertViewWithTitle:@"" message:@"Confidence 1-100" cancelButtonTitle:@"Cancel" otherButtonTitles:[NSArray arrayWithObject:@"OK"] onDismiss:^(int buttonIndex, UIAlertView *alertView) {
+        NSString *input = [alertView textFieldAtIndex:0].text;
+        int scaledConf = [input integerValue];
+        if (scaledConf > 0 && scaledConf <= 100)
+        {
+            // we'll say 7,000 confidence is baiscally 0.
+            float percentage = (float)scaledConf/100.0;
+            self.threshold = 7000.0 - (7000.0 * percentage);
+            
+            [self performSelectorOnMainThread:@selector(guess:) withObject:nil waitUntilDone:NO];
+        }
+    } onCancel:^{
+    }];
+    
+    av.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [av show];
 }
 
 @end
