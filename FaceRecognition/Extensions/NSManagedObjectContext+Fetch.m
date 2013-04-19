@@ -75,7 +75,7 @@
     {
         return [set anyObject];
     }
-    return [NSNull null];
+    return nil;
 }
 
 @end

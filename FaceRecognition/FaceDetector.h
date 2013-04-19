@@ -16,6 +16,4 @@
 + (FaceDetector *)sharedInstance;
 - (NSArray *)findFacesInImage:(UIImage *)image;
 
-
-
 @end

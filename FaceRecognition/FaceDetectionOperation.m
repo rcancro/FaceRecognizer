@@ -13,22 +13,9 @@
 #import "DetectedFace+Additions.h"
 #import <opencv2/highgui/cap_ios.h>
 #import <opencv2/contrib/contrib.hpp>
-#import "UIImage+OpenCV.h"
-
-#define USE_OPENCV_FACE_DETECTION 1
-
-#if USE_OPENCV_FACE_DETECTION
-NSString * const kFaceCascadeFilename = @"haarcascade_frontalface_alt2";
-const int kHaarOptions =  0;
-static cv::CascadeClassifier _faceCascade;
-#endif
+#import "FaceDetector.h"
 
 @interface FaceDetectionOperation()
-
-#if !USE_OPENCV_FACE_DETECTION
-@property (nonatomic, strong) CIDetector *faceDetector;
-#endif
-
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @end
 
@@ -42,9 +29,16 @@ static cv::CascadeClassifier _faceCascade;
         [self.context setPersistentStoreCoordinator:[AppDelegate appDelegate].persistentStoreCoordinator];
         [self.context setMergePolicy: NSMergeByPropertyObjectTrumpMergePolicy];
                 
-        if (self.startupBlock)
+        if (self.startupBgBlock)
         {
-            self.startupBlock(self.context);
+            self.startupBgBlock(self.context);
+        }
+        
+        if (self.startupUIBlock)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.startupUIBlock();
+            });
         }
         
         // get all photos that do not have faces
@@ -53,7 +47,7 @@ static cv::CascadeClassifier _faceCascade;
         if ([allPhotos count] == 0)
         {
             // need to populate the DB
-            NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
+            NSString *bundleRoot = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Faces"];
             NSFileManager *fm = [NSFileManager defaultManager];
             NSArray *dirContents = [fm contentsOfDirectoryAtPath:bundleRoot error:nil];
             NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
@@ -62,7 +56,7 @@ static cv::CascadeClassifier _faceCascade;
             for (NSString *str in images)
             {
                 Photo *photoObject = (Photo *)[NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:self.context];
-                photoObject.imagePath = str;
+                photoObject.imagePath = [@"Faces" stringByAppendingPathComponent:str];
             }
             [self.context save:nil];
         }
@@ -78,7 +72,7 @@ static cv::CascadeClassifier _faceCascade;
                 NSString *path = [[NSBundle mainBundle] pathForResource:p.imagePath ofType:nil];
                 UIImage *photo = [[UIImage alloc] initWithContentsOfFile:path];
                 
-                NSArray *rects = [self findFacesInImage:photo];
+                NSArray *rects = [[FaceDetector sharedInstance] findFacesInImage:photo];
                 NSMutableSet *faces = [NSMutableSet set];
                 for (NSValue *v in rects)
                 {
@@ -91,10 +85,20 @@ static cv::CascadeClassifier _faceCascade;
                 
                 p.faceDetectionRun = [NSNumber numberWithBool:YES];
                 p.faces = faces;
-                [self.context save:nil];
+                
+                if (photoIndex % 50 == 0)
+                {
+                    [self.context save:nil];
+                }
                 
                 photoIndex++;
                 NSLog(@"%d of %d found: %d faces", photoIndex, totalPhotos, [faces count]);
+                
+                if (self.progressBgBlock)
+                {
+                    self.progressBgBlock(self.context);
+                }
+                
                 if (self.progressUIBlock)
                 {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -103,42 +107,20 @@ static cv::CascadeClassifier _faceCascade;
                 }
             }
         }
+        
+        if (self.completionBgBlock)
+        {
+            self.completionBgBlock(self.context);
+        }
+        
+        if (self.completionUIBlock)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.completionUIBlock();
+            });
+        }
     }
 }
 
-- (NSArray *)findFacesInImage:(UIImage *)image
-{
-    
-#if USE_OPENCV_FACE_DETECTION
-    cv::Mat imageMat = [image asGrayScaleCVMat];
-    std::vector<cv::Rect> faces;
-    _faceCascade.detectMultiScale(imageMat, faces, 1.1, 2, kHaarOptions, cv::Size(100, 100));
-    
-    NSMutableArray *facesArray = [NSMutableArray array];
-    for (std::vector<cv::Rect>::iterator i = faces.begin(); i != faces.end(); i++)
-    {
-        CGRect r = {static_cast<CGFloat>(i->x), static_cast<CGFloat>(i->y), static_cast<CGFloat>(i->width), static_cast<CGFloat>(i->height)};
-        [facesArray addObject:[NSValue valueWithCGRect:r]];
-    }
-    return facesArray;
-#else
-    if (!self.faceDetector)
-    {
-        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:CIDetectorAccuracyHigh, CIDetectorAccuracy, [NSNumber numberWithFloat:.2],CIDetectorMinFeatureSize,nil];
-        self.faceDetector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:options];
-    }
-    
-    CIImage *ciImage = [[CIImage alloc] initWithImage:image];
-    NSArray *features = [self.faceDetector featuresInImage:ciImage];
-    NSMutableArray *rects = [NSMutableArray array];
-    for (CIFeature *feature in features)
-    {
-        CGRect r = feature.bounds;
-        r.origin.y = image.size.height - (r.origin.y + r.size.height);
-        [rects addObject:[NSValue valueWithCGRect:r]];
-    }
-    return rects;
-#endif
-}
 
 @end

@@ -154,11 +154,11 @@
         hud.progress = (float)photoCount/(float)totalPhotos;
     };
     
-    faceDetectionOp.completionBlock = ^{
+    faceDetectionOp.completionUIBlock = ^{
         [hud hide:YES];
     };
     
-    faceDetectionOp.startupBlock = ^(NSManagedObjectContext *context){
+    faceDetectionOp.startupBgBlock = ^(NSManagedObjectContext *context){
         NSSet *detectedFaces = [context fetchObjectsForEntityName:@"DetectedFace" withPredicate:nil];
         for (DetectedFace *face in detectedFaces)
         {

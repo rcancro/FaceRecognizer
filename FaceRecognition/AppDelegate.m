@@ -131,27 +131,5 @@ void uncaughtExceptionHandler(NSException *exception)
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (void)populateCoreData
-{
-    NSSet *allPhotos = [[[AppDelegate appDelegate] managedObjectContext] fetchObjectsForEntityName:@"Photo"withPredicate:nil];
-    NSManagedObjectContext *context = [[AppDelegate appDelegate] managedObjectContext];
-    
-    if ([allPhotos count] == 0)
-    {
-        NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSArray *dirContents = [fm contentsOfDirectoryAtPath:bundleRoot error:nil];
-        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.jpg'"];
-        NSArray *images = [dirContents filteredArrayUsingPredicate:fltr];
-        
-        for (NSString *str in images)
-        {
-            Photo *photoObject = (Photo *)[NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:context];
-            photoObject.imagePath = str;
-            [context save:nil];
-        }
-    }
-    
-}
 
 @end

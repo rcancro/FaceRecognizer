@@ -15,6 +15,5 @@
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 + (AppDelegate *)appDelegate;
-- (void)populateCoreData;
 
 @end

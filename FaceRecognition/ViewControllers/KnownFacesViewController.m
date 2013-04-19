@@ -58,7 +58,7 @@
         hud.progress = (float)photoCount/(float)totalPhotos;
     };
     
-    faceDetectionOp.completionBlock = ^{
+    faceDetectionOp.completionUIBlock = ^{
         [hud hide:YES];
     };
     [queue addOperation:faceDetectionOp];
